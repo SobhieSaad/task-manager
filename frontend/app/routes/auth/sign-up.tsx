@@ -100,11 +100,11 @@ function SignUp() {
                         >Sign up</Button>
                     </form>
                 </Form>
-                <CardFooter>
+                <CardFooter className='mt-6 flex justify-center text-center'>
                     <div className='flex items-center justify-center'>
                         <p className='text-sm text-muted-foreground'>
                             Already have an account? {" "}
-                            <Link className='' to='/sign-in'>Sign in</Link>
+                            <Link className='text-sm text-blue-600' to='/sign-in'>Sign in</Link>
                         </p>
                     </div>
                 </CardFooter>
