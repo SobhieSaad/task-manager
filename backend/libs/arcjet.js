@@ -1,4 +1,4 @@
-import arcjet, { shield, detectBot, tokenBucket } from "@arcjet/node";
+import arcjet, { shield, detectBot, tokenBucket, validateEmail } from "@arcjet/node";
 import { isSpoofedBot } from "@arcjet/inspect";
 
 const aj = arcjet({
