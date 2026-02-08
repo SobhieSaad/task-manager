@@ -13,12 +13,10 @@ const registerUser = async(req, res) => {
         console.log("Arcjet decision", decision);
 
         if (decision.isDenied()) {
-            if (decision.reason.isRateLimit()) {
             res.writeHead(403, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ message: "Invalid email address" }));
-            }
         }
-        
+
         const existingUser = await User.findOne({email});
 
         if (existingUser) {
