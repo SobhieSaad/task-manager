@@ -73,4 +73,27 @@ const loginUser = async(req, res) => {
     }
 }
 
+const verifyEmail = async(req, res) => {
+    try {
+        const {token} = req.body;
+
+        const payload = jwt.verify(token, process.env.JWT_SECRET)
+
+        if (!payload) {
+            return res.status(401).json({message: 'Unauthorized'})
+        }
+
+        const {userId, property} = payload;
+
+        if (property !== 'email-verification') {
+            return res.status(401).json({message: 'Unauthorized'})
+        }
+
+        
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({message: 'Internal server error'})
+    }
+}
+
 export {registerUser, loginUser};

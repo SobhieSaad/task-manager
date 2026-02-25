@@ -1,7 +1,7 @@
 import express from 'express'
 import {z} from 'zod'
 import {validateRequest} from 'zod-express-middleware'
-import { registerSchema, loginSchema} from '../libs/validate-schema.js';
+import { registerSchema, loginSchema, verifyEmailSchema } from '../libs/validate-schema.js';
 import { loginUser, registerUser } from '../controllers/auth-controller.js';
 
 const router = express.Router();
@@ -17,5 +17,12 @@ router.post(
     validateRequest({body: loginSchema}),
     loginUser,
 );
+
+router.post(
+    'verify-email',
+    validateRequest({
+        body: verifyEmailSchema
+    })
+)
 
 export default router;
