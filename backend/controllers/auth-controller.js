@@ -89,6 +89,33 @@ const verifyEmail = async(req, res) => {
             return res.status(401).json({message: 'Unauthorized'})
         }
 
+        const verification = await Verification.findOne({
+            userId,
+            token
+        });
+
+        if (!verification) {
+            return res.status(401).json({message: 'Unauthorized'})
+        }
+
+        const isTokenExpired = verification.expiresAt < new Date();
+
+        if (isTokenExpired) {
+            return res.status(401).json({message: 'Token is expired'})
+        }
+
+        const user = await User.findById(userId);
+
+        if (user.isEmailVerified) {
+            res.status(400).json({message: 'Email already verified'})
+        }
+
+        user.isEmailVerified = true
+        await user.save()
+
+        await Verification.findByIdAndDelete(verification._id)
+
+        res.status(200).json({message: 'Email verified successfully'})
         
     } catch(e) {
         console.log(e);
@@ -96,4 +123,4 @@ const verifyEmail = async(req, res) => {
     }
 }
 
-export {registerUser, loginUser};
+export {registerUser, loginUser, verifyEmail};
