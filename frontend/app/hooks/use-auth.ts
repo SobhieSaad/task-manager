@@ -7,3 +7,10 @@ export const useSignUpMutation = () => {
         mutationFn: (data: SignUpFormData) => postData('/auth/register', data),
     })
 }
+
+export const useVerifyEmailmutation = () => {
+    return useMutation({
+        mutationFn: (data: { token: string}) =>
+            postData('/auth/verify-email', data)
+    })
+}
