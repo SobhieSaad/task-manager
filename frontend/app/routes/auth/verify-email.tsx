@@ -12,13 +12,12 @@ function VerifyEmail() {
   const [isSuccess, setisSuccess] = useState(false)
 
   const {mutate, isPending} = useVerifyEmailmutation()
+  const token = searchParams.get('token')
 
   useEffect(() => {
-    const token = searchParams.get('token')
 
-    if (!token) {
+    if (token) {
       setisSuccess(false)
-    } else {
       mutate({token}, {
         onSuccess: () => setisSuccess(true),
         onError: (error) => {
